@@ -1,0 +1,64 @@
+# Example copy-paste URL:
+# https://eu-central-1.console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/create/review
+#    ?templateURL=https://s3-eu-central-1.amazonaws.com/cloudformation-templates-eu-central-1/WordPress_Single_Instance.template
+#    &stackName=WellArchitectedToolAccessStack
+#    &param_AccountName=ExternalAccountName
+#    &param_ExternalAccountID=123456789012
+#    &param_WellArchitectedAccessLevel=ReadOnly
+
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Use to provide cross-account role to the Well-Architected Tool'
+
+Mappings:
+  ManagedAccessMap:
+    ReadOnly:
+      "AWSManagedRole": "arn:aws:iam::aws:policy/WellArchitectedConsoleReadOnlyAccess"
+    FullAccess:
+      "AWSManagedRole": "arn:aws:iam::aws:policy/WellArchitectedConsoleFullAccess"
+
+Parameters:
+  AccountName:
+    Type: String
+    Description: External AWS account name
+    MinLength: '1'
+    MaxLength: '100'
+    ConstraintDescription: The name must be less than 100 characters
+  ExternalAccountID:
+    Type: Number
+    Description: 12-digit external AWS account ID allowing access from
+  WellArchitectedAccessLevel:
+    Description: Well-Architected Tool Access Level
+    Type: String
+    Default: ReadOnly
+    AllowedValues:
+      - ReadOnly
+      - FullAccess
+
+Resources:
+  CrossAccountRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Action: 'sts:AssumeRole'
+          Effect: Allow
+          Principal:
+            AWS: !Ref "ExternalAccountID"
+        Version: '2012-10-17'
+      RoleName: 'Well_Architected_Tool_External_Access_Role'
+      Path: "/"
+      ManagedPolicyArns: [!FindInMap [ManagedAccessMap, !Ref "WellArchitectedAccessLevel", AWSManagedRole]]
+
+Outputs:
+  AccountName:
+    Value: !Ref "AccountName"
+    Description: External AWS Account Name
+  ExternalAccountID:
+    Value: !Ref "ExternalAccountID"
+    Description: External AWS Account ID
+  AccessLevel:
+    Value: !Ref "WellArchitectedAccessLevel"
+    Description: Access Level to the Well-Architected Tool
+  ConnectionURL:
+    Value: !Join [ "", ["https://signin.aws.amazon.com/switchrole?roleName=Well_Architected_Tool_External_Access_Role&account=", !Ref "AWS::AccountId"]]
+    Description: External user cross-account access URL
