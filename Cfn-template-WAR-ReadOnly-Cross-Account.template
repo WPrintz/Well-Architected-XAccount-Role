@@ -1,4 +1,4 @@
-# Example copy-paste URL:
+# Example Quick Create URL:
 # https://console.aws.amazon.com/cloudformation/home
 #    ?region=us-east-1#/stacks/create/review
 #    ?templateURL=https://s3-us-east-1.amazonaws.com/MyExternallyAccessibleBucket/Cfn-template-WAR-ReadOnly-Cross-Account.template
@@ -6,6 +6,8 @@
 #    &param_AccountName=ExternalAccountName
 #    &param_ExternalAccountID=123456789012
 #    &param_WellArchitectedAccessLevel=ReadOnly
+# Reference: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stacks-quick-create-links.html
+
 
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'Use to provide cross-account role to the Well-Architected Tool'
