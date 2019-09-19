@@ -60,6 +60,6 @@ Outputs:
   AccessLevel:
     Value: !Ref "WellArchitectedAccessLevel"
     Description: Access Level to the Well-Architected Tool
-  ConnectionURL:
+  SwitchRoleURL:
     Value: !Join [ "", ["https://signin.aws.amazon.com/switchrole?roleName=Well_Architected_Tool_External_Access_Role&account=", !Ref "AWS::AccountId"]]
-    Description: External user cross-account access URL
+    Description: QuickLink to switch cross-account roles.  Provide this URL to external parties.
