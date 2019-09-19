@@ -1,6 +1,7 @@
 # Example copy-paste URL:
-# https://eu-central-1.console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/create/review
-#    ?templateURL=https://s3-eu-central-1.amazonaws.com/cloudformation-templates-eu-central-1/WordPress_Single_Instance.template
+# https://console.aws.amazon.com/cloudformation/home
+#    ?region=us-east-1#/stacks/create/review
+#    ?templateURL=https://s3-us-east-1.amazonaws.com/MyExternallyAccessibleBucket/Cfn-template-WAR-ReadOnly-Cross-Account.template
 #    &stackName=WellArchitectedToolAccessStack
 #    &param_AccountName=ExternalAccountName
 #    &param_ExternalAccountID=123456789012
@@ -19,13 +20,13 @@ Mappings:
 Parameters:
   AccountName:
     Type: String
-    Description: External AWS account name
+    Description: Friendly name of the external AWS account that will be given access to the Well-Architected Tool.
     MinLength: '1'
     MaxLength: '100'
     ConstraintDescription: The name must be less than 100 characters
   ExternalAccountID:
     Type: Number
-    Description: 12-digit external AWS account ID allowing access from
+    Description: 12-digit external AWS account ID that will be given access to the Well-Architected Tool
   WellArchitectedAccessLevel:
     Description: Well-Architected Tool Access Level
     Type: String
