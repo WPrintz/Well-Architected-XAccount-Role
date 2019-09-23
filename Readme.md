@@ -1,7 +1,7 @@
 ### This repo is to provide an example CloudFormation template that can be provided to AWS Customers that want to allow Read-Only Access or Full Access to the Well-Architected Tool (WAT) within their account to an external AWS account using an IAM cross-account role.
 
 ### Instructions:
-Provide the [included CloudFormation template](./Cfn-template-WAR-ReadOnly-Cross-Account.template) to the party that wants to provide external access to the Well-Architected Tool in their account.
+Provide the [included CloudFormation template](./Cfn-Well-Architected-Tool-Cross-Account-Role.template) to the party that wants to provide external access to the Well-Architected Tool in their account.
 
 The following parameters are needed:
 * **AccountName** [String]: Friendly name of the external AWS account that will be given access to the Well-Architected Tool.
